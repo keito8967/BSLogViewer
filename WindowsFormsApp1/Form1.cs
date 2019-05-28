@@ -14,6 +14,7 @@ namespace WindowsFormsApp1
     {
         public Form1()
         {
+            Application.EnableVisualStyles();
             InitializeComponent();
         }
 
@@ -21,13 +22,8 @@ namespace WindowsFormsApp1
         {
             dataSet11.DataTable1.Clear();
             dataGridView2.Rows.Clear();
-            foreach (string r in textBox1.Text.Split('\n'))
+            foreach (string r in textBox1.Text.Split('\n','\r'))
             {
-                //string[] s = r.Split(' ',',');
-                //if(s.Length>=3)
-                //{
-                //    dataSet11.DataTable1.Rows.Add(new string[3] { s[0], s[1], s[2] });
-                //}
                 if (
                     r.Length > 0
                     && r[0] == '['
@@ -35,15 +31,6 @@ namespace WindowsFormsApp1
                     && r.IndexOf("xuid: ") >= 0
                     )
                 {
-                    //DateTime time;
-                    //try
-                    //{
-                    //    time = Convert.ToDateTime(r.Substring(1, 19));
-                    //}
-                    //catch
-                    //{
-                    //    continue;
-                    //}
                     try
                     {
                         DateTime time = Convert.ToDateTime(r.Substring(1, 19));
@@ -105,7 +92,6 @@ namespace WindowsFormsApp1
 
                 }
             }
-            dataGridView1.AutoResizeColumns();
             dataGridView2.AutoResizeColumns();
         }
 
@@ -142,6 +128,7 @@ namespace WindowsFormsApp1
                     }
                 }
                 dataGridView1.DataSource = ds;
+                dataGridView1.DataMember = "DataTable1";
                 dataGridView1.AutoResizeColumns();
             }
             catch
